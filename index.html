@@ -76,13 +76,13 @@
                 },
                 
                 error: function (result, textStatus, thrownError) {
-                    alert("result:"+result);
-                    alert("textStatus"+result);
-                    alert("thrownError"+thrownError);
-                    if(textStatus === 'timeout')
-                      {     
+                    //alert("result:"+result);
+                    //alert("textStatus"+result);
+                    //alert("thrownError"+thrownError);
+                    //if(thrownError == 'timeout')
+                      //{     
                         openDialog("Problém", "<div style='padding: 15px;'><p>Připojeni k internetu po pokusu 10 vteřin stále nefunguje. Odkliknutím tohoto okna se program znovu pokusí po dobu 10 vteřin připojit se k internetu</p><a rel='close' onClick='getFirstScript()' data-role='button' href='#'>Další pokus</a></div> ");
-                      }
+                     // }
                 },
                 timeout: 10000
             });
