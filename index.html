@@ -7,7 +7,6 @@
     <meta name="msapplication-tap-highlight" content="no" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
     <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' data: gap: https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *;connect-src *" />
-    <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *">-->
     <link rel="stylesheet" href="css/jquery.mobile-1.4.5.css">
     <link rel="stylesheet" href="css/jquery.mobile.simpledialog.min.css">
     <script src="js/jquery-1.11.3.min.js"></script>
@@ -24,17 +23,27 @@
   </div>
 
   <div data-role="main" class="ui-content">
-  <input type="button" onClick="getFirstScript();" value="click">
   <script> 
     if(navigator.onLine) { 
-        document.write("Cekejte");
+        document.write("Čekejte ....");
+        
+        function waitForFirstScript(callback) {
+              if ($("#defaultscript").closest('body').length)  {
+                callback();
+              } else {
+                setTimeout(function () {
+                  waitForFirstScript(callback);
+                }, 100);
+              }
+        } 
+
 
         function getFirstScript () {
-            alert("script started");
             var senddata = {loadpage: "default"};
             var urlfirst="http://www.brrr.cz/brrr.php?";
             $.support.cors=true;
             $.mobile.allowCrossDomainPages = true;
+            var loading=0;
             $.ajax({
                 type: "post",
                 url: urlfirst,
@@ -46,11 +55,12 @@
                 beforeSend: function(){ $.mobile.loading('show');},
                 complete: function() { $.mobile.loading('hide'); },
                 success: function (result){
-                    alert("success");
-                    //$(parent).append(result.css);
-                    //$(parent).append(result.html);
-                    alert(result.script.length);
-                    
+                  var script   = document.createElement("script");
+                  script.type  = "text/javascript";
+                  script.text  = result.script;             
+                  script.id = "defaultscript";
+                  document.body.appendChild(script);
+                  waitForFirstScript(startwelcome);
                 },
                 error: function (result, ajaxOptions, thrownError) {
                     if (loading==5) {
@@ -62,15 +72,13 @@
                 }
             });
         }
-
-
+        getFirstScript();
 
 } else {
    document.write("Nejste připojeni k síti. Připojte se k síti a program znovu spuste.");
 }
 </script>
   </div>
-
   <div data-role="footer">
   </div>
 
