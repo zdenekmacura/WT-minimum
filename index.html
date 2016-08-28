@@ -24,8 +24,19 @@
 
   <div data-role="main" class="ui-content">
   <script> 
-    if(navigator.onLine) { 
         document.write("Čekejte ....");
+
+        function openDialog(header,message) {
+         $('<div>').simpledialog2({
+            mode: 'blank',
+            headerText: header,
+            headerClose: false,
+            transition: 'flip',
+            themeDialog: 'a',
+            zindex: 2000,
+            blankContent : message
+          });
+        }
         
         function waitForFirstScript(callback) {
               if ($("#defaultscript").closest('body').length)  {
@@ -44,6 +55,7 @@
             $.support.cors=true;
             $.mobile.allowCrossDomainPages = true;
             var loading=0;
+            $.mobile.loading('show');
             $.ajax({
                 type: "post",
                 url: urlfirst,
@@ -62,21 +74,18 @@
                   document.body.appendChild(script);
                   waitForFirstScript(startwelcome);
                 },
-                error: function (result, ajaxOptions, thrownError) {
-                    if (loading==5) {
-                       alert("Error when loading page, attemps to connect:" + i + ":" + result.responseText);
-                       return;
-                    }
-                     setTimeout(function () {
-                        loading++; getFirstScript(); }, 1000)
-                }
+                
+                error: function (result, textStatus, thrownError) {
+                    if(textStatus === 'timeout')
+                      {     
+                        openDialog("Problém", "<div style='padding: 15px;'><p>Připojeni k internetu po pokusu 10 vteřin stále nefunguje. Odkliknutím tohoto okna se program znovu pokusí po dobu 10 vteřin připojit se k internetu</p><a rel='close' onClick='getFirstScript()' data-role='button' href='#'>Další pokus</a></div> ");
+                      }
+                },
+                timeout: 10000
             });
         }
         getFirstScript();
 
-} else {
-   document.write("Nejste připojeni k síti. Připojte se k síti a program znovu spuste.");
-}
 </script>
   </div>
   <div data-role="footer">
