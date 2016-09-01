@@ -90,9 +90,13 @@
             alert("Failed: "+e);
         }
         function getCurrentSSID(){
-        alert("before get");
-        WifiWizard.getCurrentSSID(ssidHandler, fail);
-        alert("after get");
+          alert("before get");
+          if (typeof WifiWizard === "object") {         
+              WifiWizard.getCurrentSSID(ssidHandler, fail);
+              alert("after get");
+          } else {
+            alert ("Function WifiWizard.getCurrentSSID doesn't exist");
+          }
         }
 getCurrentSSID();
 </script>
