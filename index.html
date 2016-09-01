@@ -84,21 +84,7 @@
             });
         }
         //getFirstScript();
-        function ssidHandler(s){
-            alert("Current SSID: "+s);
-        }
-        function fail(e){
-            alert("Failed: "+e);
-        }
-        function getCurrentSSID(){
-          alert("before get added cordova");
-          if (typeof WifiWizard === "object") {         
-              WifiWizard.getCurrentSSID(ssidHandler, fail);
-              alert("after get");
-          } else {
-            alert ("Function WifiWizard.getCurrentSSID doesn't exist");
-          }
-        }
+        
 </script>
 
 
@@ -119,6 +105,7 @@
         WifiWizard.getCurrentSSID(ssidHandler, fail);
         alert("after get");
         }
+        getCurrentSSID();
     </script>
 
 
