@@ -19,6 +19,7 @@
   <content src="index.html" />
   <!--<gap:plugin name="cordova-plugin-whitelist" spec="1.1.0" />-->
   <gap:plugin name="cordova-plugin-whitelist" source="npm" spec="~1.2.1" />
+  <plugin name="com.pylonproducts.wifiwizard" spec="https://github.com/parsonsmatt/WifiWizard.git" source="git" />
 
   <access origin="*" />
   <allow-navigation href="http://*/*" />
