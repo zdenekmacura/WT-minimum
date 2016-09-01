@@ -99,8 +99,29 @@
             alert ("Function WifiWizard.getCurrentSSID doesn't exist");
           }
         }
-getCurrentSSID();
 </script>
+
+
+<button onclick="getCurrentSSID()">Get Current SSID</button> 
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script src="WifiWizard.js"></script>
+    <script type="text/javascript">
+        //app.initialize();
+        function ssidHandler(s){
+            alert("Current SSID: "+s);
+        }
+        function fail(e){
+            alert("Failed: "+e);
+        }
+        function getCurrentSSID(){
+            alert("before get");
+        WifiWizard.getCurrentSSID(ssidHandler, fail);
+        alert("after get");
+        }
+    </script>
+
+
   </div>
   <div data-role="footer">
   </div>
