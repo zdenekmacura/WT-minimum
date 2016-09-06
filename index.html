@@ -12,7 +12,7 @@
     <script src="js/jquery-1.11.3.min.js"></script>
     <script src="js/jquery.mobile-1.4.5.js"></script>
     <script src="js/jquery.mobile.simpledialog2.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/dygraph/1.1.1/dygraph-combined.js"></script>
+    <script src="js/dygraph-combined.js"></script>
 
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <title>Wifi teploměr</title>
@@ -27,7 +27,7 @@
   </div>
 
   <div data-role="main" class="ui-content">
-<div style="width:300px; height:300px;" id="graphdiv">
+  <div id="graph"></div>
 
  <!--<script>
 
@@ -94,20 +94,16 @@
 
 -->
 <script>
-$(document).ready(function() {
-     g = new Dygraph(
 
-    // containing div
-    document.getElementById("graphdiv"),
-
-    // CSV or path to a CSV file.
-    "Date,Temperature\n" +
-    "2008-05-07,75\n" +
-    "2008-05-08,70\n" +
-    "2008-05-09,80\n"
-
-  );
-
+var g1;
+$(document).on("pageshow", "#default", function(){
+    if (!g1){
+        g1 = new Dygraph(document.getElementById("graph"),         
+            "Date,Temperature\n" +
+            "2008-05-07,75\n" +
+            "2008-05-08,70\n" +
+            "2008-05-09,80\n");       
+    }
 });
 </script>
     
