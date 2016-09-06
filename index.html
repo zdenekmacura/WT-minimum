@@ -12,31 +12,6 @@
     <script src="js/jquery-1.11.3.min.js"></script>
     <script src="js/jquery.mobile-1.4.5.js"></script>
     <script src="js/jquery.mobile.simpledialog2.js"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Year', 'Sales', 'Expenses'],
-          ['2004',  1000,      400],
-          ['2005',  1170,      460],
-          ['2006',  660,       1120],
-          ['2007',  1030,      540]
-        ]);
-
-        var options = {
-          title: 'Company Performance',
-          curveType: 'function',
-          legend: { position: 'bottom' }
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-        chart.draw(data, options);
-      }
-    </script>
 
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <title>Wifi teploměr</title>
@@ -51,9 +26,21 @@
   </div>
 
   <div data-role="main" class="ui-content">
-      <div id="curve_chart" style="width: 900px; height: 500px"></div>
+  <canvas id="myCanvas" width="300" height="150" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas>
 
- <!-- <script>
+<script>
+
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+ctx.beginPath();
+ctx.moveTo(0, 0);
+ctx.lineTo(300, 150);
+ctx.stroke();
+
+</script>
+
+ <!--<script>
 
         document.write("Čekejte ....");
 
